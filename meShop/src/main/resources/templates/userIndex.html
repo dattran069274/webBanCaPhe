@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+<script th:inline="javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<h1>Niceee</h1>
+<a th:href="@{/showFormAddUser}"><button>Add new User</button></a>
+<table border="1px" >
+<thead>
+<tr >
+	<th>Id</th>
+	<th>UserName</th>
+	<th>FullName</th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+</tr>
+</thead>
+<tbody>
+	<tr th:each="user, iter : ${userList}" >
+		
+		<td th:text=${iter.count}></td>
+		<td th:text=${user.userName}></td>
+		<td th:text=${user.fullName}></td>
+		<td>
+		<a th:href="@{/showFormUpdate/{id}(id=${user.getId()})}"> 
+		<button>Sửa</button></a></td>
+		<td><button th:onclick="showConfirm([[${user.id}]])">Xóa</button></td>
+		<td><button th:onclick="showInfoForm([[${user.userName}]],[[${user.fullName}]])">Xem</button></td>
+	</tr>
+</tbody>
+</table>
+<dialog style="display:none;"id="mydialog"open>
+
+</dialog>
+</body>
+</html>

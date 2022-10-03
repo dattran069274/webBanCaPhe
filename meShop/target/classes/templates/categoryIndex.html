@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Category</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+<script th:inline="javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<h1>Niceee</h1>
+<a th:href="@{/showFormAddCategory}"><button>Add new category</button></a>
+<table border="1px" >
+<thead>
+<tr >
+	<th>Id</th>
+	<th>CategoryName</th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+</tr>
+</thead>
+<tbody>
+	<tr th:each="category, iter : ${categoryList}" >
+		
+		<td th:text=${iter.count}></td>
+		<td th:text=${category.name}></td>
+		<td>
+		<a th:href="@{/showFormUpdateCategory/{id}(id=${category.getId()})}"> 
+		<button>Sửa</button></a></td>
+		<td><button th:onclick="showConfirm()">Xóa</button></td>
+		<td><button th:onclick="showInfoForm()">Xem</button></td>
+	</tr>
+</tbody>
+</table>
+<dialog style="display:none;"id="mydialog"open>
+
+</dialog>
+</body>
+</html>

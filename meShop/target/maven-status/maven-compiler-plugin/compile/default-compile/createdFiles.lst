@@ -1,0 +1,12 @@
+meShop\model\CategoryModel.class
+meShop\model\OrderDetails.class
+meShop\model\BaseModel.class
+meShop\model\UserModel.class
+meShop\model\Orders.class
+meShop\controller\MainController.class
+meShop\service\UserService.class
+meShop\repository\UserRepository.class
+meShop\MeShopApplication.class
+meShop\model\RoleModel.class
+meShop\model\ProductModel.class
+meShop\service\UserServiceImpl.class
