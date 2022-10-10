@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>History puschase</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+<script th:inline="javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<h1>History puschase</h1>
+
+<p th:text="${test}"></p>
+
+<h2 th:inline="text">Hello [[${userName}]]!</h2>
+
+<div th:if="${userName} != 'GUEST'">
+<form method="POST" th:action="@{/account/logout}">
+  <input type="hidden" name="page" value="">
+  <button type="submit">LOGOUT</button>
+  	</form>
+</div>
+<div th:if="${userName} == 'GUEST'">
+   <form method="POST" th:action="@{/account/showlogin}">
+  <input type="hidden" name="page" value="">
+  <button type="submit">LOGIN</button>
+  	</form>
+</div>
+<table border="1px" >
+<thead>
+<tr >
+	<th>Id</th>
+	<th>Image</th>
+	<th>ProductName</th>
+	<th>Price</th>
+	<th>Quantity</th>
+	
+</tr>
+</thead>
+<tbody>
+	<tr th:each="product, iter : ${productList}">
+		<td th:text=${iter.count}></td>
+		<td><img style="object-fit: cover;" width="200" height="200" id="output" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${productImages[iter.count-1]}" /></td>
+		<td th:text=${product.title}></td>
+		<td th:text=${product.price}></td>
+		<td th:text="${quantitys[iter.count-1]}"></td>
+	</tr>
+</tbody>
+</table>
+<h2>Trạng thái: <span th:text="${state==1?'Shop đã xác nhận đơn hàng':(state==2?'không nhận đơn/Hết hàng':'Chờ xác nhận')}"></span></h2>
+<button>Hủy đơn hàng</button>
+</body>
+</html>
