@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Products</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+<script th:inline="javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<h1>Niceee</h1>
+<a th:href="@{/showFormAddProduct}"><button>Add new product</button></a>
+<a th:href="@{/shopping-cart/views}"><button>GO TO CART</button></a>
+
+<table border="1px" >
+<thead>
+<tr >
+	<th>Id</th>
+	<th>Image</th>
+	<th>ProductName</th>
+	<th>Price</th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+	<th colspan="1"></th>
+</tr>
+</thead>
+<tbody>
+	<tr th:each="product, iter : ${productList}">
+		<td th:text=${iter.count}></td>
+		<td><img width="200" id="output" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${productImages[iter.count-1]}" /></td>
+		<td th:text=${product.title}></td>
+		<td th:text=${product.price}></td>
+		<td>
+		<a th:href="@{/showUpdateProductForm/{id}(id=${product.getId()})}">
+		<button>Sửa</button></a></td>
+		<td><form th:action="@{/deleteProduct}" th:onSubmit="return validateFormDelete([[${product.title}]])" th:object="${product}" th:method="delete"> 
+			<input name="id" type="hidden" th:value="${product.id}">
+			<button type="submit" >Xóa</button>
+		</form></td>
+		<td><button th:onclick="showInfoForm()">Xem</button></td>
+		<td><a th:href="@{/shopping-cart/add/{id}(id=${product.getId()})}"><button>Add to cart</button></a></td>
+	</tr>
+</tbody>
+</table>
+<dialog style="display:none;"id="mydialog"open>
+
+</dialog>
+</body>
+</html>

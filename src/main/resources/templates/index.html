@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+<script th:inline="javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<h1>HOME</h1>
+
+<p th:text="${test}"></p>
+
+<h2 th:inline="text">Hello [[${userName}]]!</h2>
+
+<div th:if="${userName} != 'GUEST'">
+<form method="POST" th:action="@{/account/logout}">
+  <input type="hidden" name="page" value="">
+  <button type="submit">LOGOUT</button>
+  	</form>
+</div>
+<div th:if="${userName} == 'GUEST'">
+   <form method="POST" th:action="@{/account/showlogin/}">
+  <input type="hidden" name="page" value=5>
+  <button type="submit">LOGIN</button>
+  	</form>
+</div>
+
+
+<a th:href="@{/userIndex}">User Management</a> <br>
+<a th:href="@{/categoryIndex}">Category Management</a> <br>
+<a th:href="@{/productIndex}">Product Management</a><br>
+<a th:href="@{/historyIndex}">Purchase client history</a><br>
+<a th:href="@{/admin/orders/views}">Manage orders (ADMIn)</a><br>
+<a th:href="@{/real}">Chat with shop</a><br>
+
+</body>
+</html>
