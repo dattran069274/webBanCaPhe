@@ -21,11 +21,21 @@ public class ProductModel extends BaseModel{
 	@Lob
 	@Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
 	private byte[] image;
+	@Lob
+	@Column(name = "image2", length = Integer.MAX_VALUE, nullable = true)
+	private byte[] image2;
+	@Lob
+	@Column(name = "image3", length = Integer.MAX_VALUE, nullable = true)
+	private byte[] image3;
 	@Column(name="description")
 	String description;
+	@Column(name="saled")
+	private int saled;
 	public CategoryModel getCategory() {
 		return category;
 	}
+	public int getSaled(){return saled;}
+	public void setSaled(int saled){ this.saled=saled;}
 	public void setCategory(CategoryModel category) {
 		this.category = category;
 	}
@@ -46,6 +56,18 @@ public class ProductModel extends BaseModel{
 	}
 	public void setImage(byte[] image2) {
 		image = image2;
+	}
+	public  byte[] getImage2() {
+		return image2;
+	}
+	public void setImage2(byte[] image3) {
+		image2 = image3;
+	}
+	public  byte[] getImage3() {
+		return image3;
+	}
+	public void setImage3(byte[] image4) {
+		image3 = image4;
 	}
 	public String getDescription() {
 		return description;

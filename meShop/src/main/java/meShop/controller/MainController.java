@@ -110,7 +110,14 @@ public class MainController {
 			initCart();
 			System.out.println("initCart");
 		}
-		return "index";
+		List<ProductModel> products= productService.getProductByListLimit4();
+		model.addAttribute("topSaled",products);
+		List<String> productImages=new ArrayList<>();
+		products.forEach(productDTO->{
+			productImages.add(Base64.getEncoder().encodeToString(productDTO.getImage()));
+		});
+		model.addAttribute("productImages", productImages);
+		return "Home";
 	}
 	private void initCart() {
 		if(cookieService.get("CARTLIST")!=null)

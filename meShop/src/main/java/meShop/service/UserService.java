@@ -9,5 +9,6 @@ public interface UserService {
 	void saveUser(UserModel usermodel);
 	UserModel getUserById(long id); 
 	void deleteUserById(long id);
-	UserModel getUserByUserName(String userName);;
+	UserModel getUserByUserName(String userName);
+	boolean isExsist(String key,String value);
 }	

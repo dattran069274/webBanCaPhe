@@ -10,6 +10,7 @@ public class ProductConverter {
 		ProductModel productModel = new ProductModel();
 		productModel.setTitle(dto.getTitle());
 		productModel.setDescription(dto.getDescription());
+		productModel.setSaled(dto.getSaled());
 		if(dto.getPrice()==null) productModel.setPrice((double)123);
 		else productModel.setPrice(dto.getPrice());
 		productModel.setImage(dto.getImage());
@@ -27,6 +28,7 @@ public class ProductConverter {
 		dto.setPrice(model.getPrice());
 		dto.setTitle(model.getTitle());
 		dto.setImage(model.getImage());
+		dto.setSaled(model.getSaled());
 		dto.setDescription(model.getDescription());
 		dto.setCreatedDate(model.getCreatedDate());
 		dto.setCreatedBy(model.getCreatedBy());
@@ -41,6 +43,7 @@ public class ProductConverter {
 		oldProductModel.setDescription(productDTO.getDescription());
 		oldProductModel.setPrice(productDTO.getPrice());
 		oldProductModel.setImage(productDTO.getImage());
+		oldProductModel.setSaled(productDTO.getSaled());
 		return oldProductModel;
 	}
 }

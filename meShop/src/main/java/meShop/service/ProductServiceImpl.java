@@ -49,7 +49,10 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		productRepository.deleteById(id);
 	}
-
+	@Override
+	public List<ProductModel> getProductByListLimit4() {
+		return productRepository.getProductByListLimit4();
+	}
 
 
 	@Override

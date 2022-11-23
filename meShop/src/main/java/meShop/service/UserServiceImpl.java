@@ -22,7 +22,16 @@ public class UserServiceImpl implements UserService{
 		userRepository.save(usermodel);
 		
 	}
-
+	@Override
+	public boolean isExsist(String key,String value) {
+		switch(key){
+			case "email":
+			return userRepository.existsByEmail(value);
+			case "userName":
+			return userRepository.existsByUserName(value);
+		}
+		return false;
+	}
 	@Override
 	public UserModel getUserById(long id) {
 		Optional<UserModel> optional=userRepository.findById(id);

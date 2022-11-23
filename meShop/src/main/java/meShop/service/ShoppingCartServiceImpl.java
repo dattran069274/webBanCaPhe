@@ -26,6 +26,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		return 1;
 	}
 	@Override
+	public int addCart(CartItem cartItem, int num) {
+		CartItem c=this.cartItems.get(cartItem.getProductId());
+		if(c!=null) {
+			c.setQuantity(c.getQuantity()+num);
+			return c.getQuantity();
+		}
+		else {
+			cartItem.setQuantity(num);
+			this.cartItems.put(cartItem.getProductId(), cartItem);
+		}
+		return num;
+	}
+	@Override
 	public void removeCart(String id) {
 		System.out.println("xoa " +id);
 		if(this.cartItems.get(id)!=null) {

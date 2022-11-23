@@ -11,4 +11,7 @@ import meShop.model.ProductModel;
 public interface ProductRepository extends JpaRepository<ProductModel, Long>{
 	@Query(value = "Select s from ProductModel s where s.id In :ids")
 	List<ProductModel> getProductByListId(List<Long> ids);
+	@Query(value = "Select * from products  ORDER BY saled DESC limit 4",nativeQuery = true)
+	List<ProductModel> getProductByListLimit4();
+	
 }

@@ -87,7 +87,7 @@ public class ShoppingCartController {
 	
 	@GetMapping(value = "/views")
 	String getViews(Model model) {
-		initCart();
+		// initCart();
 		CartItemsDTO cartItemsDTO = new CartItemsDTO(shoppingCartService.getAllCartItem());
 		model.addAttribute("cartItemsDTO", cartItemsDTO);
 		model.addAttribute("total", shoppingCartService.getTotal());
@@ -97,11 +97,13 @@ public class ShoppingCartController {
 				cartItemImages.add(Base64.getEncoder().encodeToString(cartItem.getImgae()));
 			});
 		model.addAttribute("cartItemImages", cartItemImages);
-		return "cartIndex";
+		//return "cartIndex";
+		return "Cart";
 	}
 	
 	@GetMapping(value = "/add/{id}")
-	String addCart(@PathVariable("id") String productId) throws ClassNotFoundException{
+	String addCart(@PathVariable("id") String productId,@RequestParam("num") String num) throws ClassNotFoundException{
+		System.out.println("addCart "+num);
 		ProductModel product=productService.getProductById(Integer.parseInt(productId));
 		CartItem cartItem=new CartItem();
 		if(product!=null) {
@@ -109,11 +111,11 @@ public class ShoppingCartController {
 			cartItem.setImgae(product.getImage());
 			cartItem.setPrice(product.getPrice());
 			cartItem.setProductId(productId);
-			int quantity=shoppingCartService.addCart(cartItem);
+			int quantity=shoppingCartService.addCart(cartItem,Integer.parseInt(num));
 			 updeteCookieCart();
 		}
 		
-		return "redirect:/productIndex";
+		return "redirect:/products/"+productId;
 	}
 
 	private void updeteCookieCart() throws ClassNotFoundException {

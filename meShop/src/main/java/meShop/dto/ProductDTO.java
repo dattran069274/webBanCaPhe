@@ -11,6 +11,13 @@ public class ProductDTO extends AbstractDTO<ProductDTO>{
 	private Double price;
 	private byte[] image;
 	private String description;
+	private int saled;
+	public int getSaled() {
+		return saled;
+	}
+	public void setSaled(int saled) {
+		this.saled = saled;
+	}
 	public String getCategoryId() {
 		return categoryId;
 	}
