@@ -156,7 +156,7 @@
         </table>
       </div>
       <div class=" container cart__page--check_out d-flex justify-content-end" >
-        <button class="cart__page__btn-cart-check" ><a href="CheckOut.html">Mua Ngay</a></button>
+        <button class="cart__page__btn-cart-check" ><a th:onclick="return handleClickCheck([[${cartItemsDTO}]],[[${total}]])">Mua Ngay</a></button>
       </div>
     
            
@@ -231,7 +231,10 @@
     </footer>
     <!-- footer -->
     <script>
-      
+     const handleClickCheck = (products,totals)=>
+     {
+      document.location = '/checkout';
+     }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

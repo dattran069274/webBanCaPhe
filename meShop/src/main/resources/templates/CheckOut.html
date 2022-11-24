@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:inline="javascript" th:src="@{/js/main.js}"></script>
+    <script th:inline="javascript" th:src="@{/js/address.js}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
@@ -79,7 +81,17 @@
                       3
                     </span></a>
                 </div>
-                <a class="navbar__user-link" href=""><i class="fa-regular fa-user"></i></a>
+                <div class="navbar__user-dropdown">
+                  <a class="navbar__user-link"><i class="fa-regular fa-user"></i></a>
+                  <ul class="navbar__user-dropdown_list">
+                    <li th:if="${userName}">Chào Mừng <span  th:text="${userName}"></span></li>
+                    <li><a href="">Tài Khoản</a></li>
+                      <li th:if="${userName}=='GUEST'"><a th:href="@{/account/login}">Đăng Nhập</a></li>
+                      <li th:if="${userName}!='GUEST'"><a th:href="@{/account/logout}">Đăng Xuất</a></li>
+                    
+  
+                  </ul>
+                  </div>
               </div>
             </div>
           </nav>

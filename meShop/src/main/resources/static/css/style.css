@@ -743,11 +743,11 @@ color: #2E0404;
 /* modal */
 .modal.disable__none
 {
-    display: none;
+    display: flex;
 }
 .modal
 {
-    display: flex;
+    display: none;
     position: fixed;
     top: 0;left: 0;bottom: 0;right: 0;
     justify-content: center;

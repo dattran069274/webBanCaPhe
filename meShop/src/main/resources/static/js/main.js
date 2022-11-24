@@ -59,3 +59,20 @@ function showInfoForm(userName,fullName){
 	dialog.appendChild(label3);
 	dialog.appendChild(input3);
 }
+
+// checkout
+	const modal = document.querySelector('.modal')
+	const check_out_address = document.querySelector('.check--out__address')
+	check_out_address.onclick= ()=>
+	{
+  modal.classList.add('disable__none')
+}
+const butOuts = document.querySelectorAll('.modal__container-button button')
+butOuts.forEach((butOut)=>
+{
+  butOut.onclick = ()=>
+{
+  modal.classList.remove('disable__none')
+}
+})
+// checkout
