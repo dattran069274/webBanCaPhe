@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin| Manage Products</title>
+	<link type="text/css" href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/test.css" rel="stylesheet">
+	<link type="text/css" href="/css/theme.css" rel="stylesheet">
+	<link type="text/css" href="/css/style.css" rel="stylesheet">
+	<link type="text/css" href="/css/images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+</head>
+<body>
+
+	
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <i class="icon-reorder shaded"></i>
+            </a>
+
+              <a class="brand" href="/index.html">
+                    Admin
+              </a>
+
+            <div class="nav-collapse collapse navbar-inverse-collapse">
+				<ul class="nav pull-right">
+                    <li><a href="#">
+                        Hello <span th:text=${userName}></span>
+                    </a></li>
+                    <li class="nav-user dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/change-password.html">Change Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout.html">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+</div><!-- /navbar header -->
+
+<div class="span3">
+    <div class="sidebar">
+
+
+<ul class="widget widget-menu unstyled">
+            <li>
+                <a href="/admin/orders/views">
+					<i class="menu-icon icon-cog"></i>
+                    Order Management
+                </a>
+                       
+             </li>
+            
+            <li>
+                <a href="/admin/users/views">
+                    <i class="menu-icon icon-group"></i>
+                    Manage users
+                </a>
+            </li>
+        </ul>
+
+
+        <ul class="widget widget-menu unstyled">
+			<li><a href="/admin/categorys/views"><i class="menu-icon icon-tasks"></i> Create Category </a></li>
+			<li><a href="/admin/users/views"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
+			<li><a href="/admin/products/views"><i class="menu-icon icon-table"></i>Manage Products </a></li>
+        
+            </ul><!--/.widget-nav-->
+
+        <ul class="widget widget-menu unstyled">
+            
+            <li>
+                <a href="/logout.html">
+                    <i class="menu-icon icon-signout"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+
+    </div><!--/.sidebar-->
+</div><!--/.span3-->
+
+
+
+
+<div class="wrapper">
+	<div class="container">
+		<div class="row">
+				
+		<div class="span9">
+				<div class="content">
+
+<div class="module">
+						<div class="module-head d-flex ">
+							<h3>Manage Products</h3>
+							<div class="module_search">
+								<input class="m-0" type="text" placeholder="Tìm Kiếm">
+							</div>
+						</div>
+
+						<div class="module-body table">
+
+								<!-- <div class="alert alert-error">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+								<strong>Oh snap!</strong> 	
+								</div>
+
+
+								<br /> -->
+
+						
+							<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Image</th>
+										<th>Product Name</th>
+										<th>Category </th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								
+
+									
+									<tr class="ad_product" th:each="productDTO ,iter: ${productDTOs}">
+										<td th:text="${iter.index}"></td>
+										<td ><img  style="object-fit: scale-down;" width="200" height="200" id="output1" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${productImage1s[iter.index]}" /></td>
+										<td class="ad_product_name" th:text="${productDTO.title}"></td>
+										<td  th:text="${productDTO.categoryName}"></td>
+										<td>
+										<a th:href="${'/admin/products/update/'+productDTO.id}"><i class="icon-edit"></i></a>
+										<button class="pro_del_ad" th:onClick="handleDel([[${productDTO.title}]],[[${productDTO.id}]])"><i class="icon-remove-sign"></i></button></td>
+									</tr>
+									
+									
+							</table>
+						</div>
+					</div>						
+
+					
+					
+				</div><!--/.content-->
+			</div><!--/.span9-->
+		</div>
+	</div><!--/.container-->
+</div><!--/.wrapper-->
+
+
+
+
+	<script >
+	const handleDel = (name,id)=>
+	{
+			
+			var ok=confirm('Dou You Want To Delete '+name);  
+			//console.log(ok)
+			if(ok){
+				fetch('/admin/products/delete/'+id, {
+				    method: "DELETE", 
+				  })
+				  .then(data=>data.json())
+				  .then(data=>{
+					  console.log(data)
+					  if(data.status==1){
+						  window.location.reload();
+					  }
+					  else {
+						  alert("Xóa không thành công!")
+					  }
+				  })
+				  navbar__search.addEventListener('keypress',function(e)
+{
+
+})
+			
+		}
+	}
+	const ad_product_name = document.querySelectorAll('.ad_product_name')
+	const module_search = document.querySelector('.module_search input')
+	module_search.addEventListener('keypress',(e)=>
+	{
+		const value = e.target.value.toLowerCase();
+		if(e.keyCode===13||e.which===13)
+ 		{
+			ad_product_name.forEach(i=>
+			{
+				
+				console.log(i.parentElement)
+
+				if(i.innerText.toLowerCase().search(value)==-1)
+				{
+					i.parentElement.style.display='none'
+				}
+				else
+				{
+					i.parentElement.style.display='table-row'
+				}
+				
+			})
+
+  		}
+	})
+	
+	</script>
+	<script src="/css/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="/css/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/flot/jquery.flot.js" type="text/javascript"></script>
+	<script src="/css/scripts/datatables/jquery.dataTables.js"></script>
+	<!-- <script>
+		$(document).ready(function() {
+			$('.datatable-1').dataTable();
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		} );
+	</script> -->
+</body>

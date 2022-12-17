@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Shipper| Pending Orders</title>
+	<link type="text/css" href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/theme.css" rel="stylesheet">
+	<link type="text/css" href="/css/style.css" rel="stylesheet">
+		<link type="text/css" href="/css/test.css" rel="stylesheet">
+	<link type="text/css" href="/css/images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="https://fonts.googleapis.com/icon?famil/js/y=Material+Icons" rel="stylesheet">	
+	<!-- <script language="javascript" type="text/javascript">
+var popUpWin=0;
+function popUpWindow(URLStr, left, top, width, height)
+{
+ if(popUpWin)
+{
+if(!popUpWin.closed) popUpWin.close();
+}
+popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+600+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
+}
+
+</script> -->
+</head>
+<body>
+
+	
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <i class="icon-reorder shaded"></i>
+            </a>
+
+              <a class="brand" href="/index.html">
+                    Shipper
+              </a>
+
+            <div class="nav-collapse collapse navbar-inverse-collapse">
+                <ul class="nav pull-right">
+                    <li><a href="#">
+                        Hello <span th:text=${userName}></span>
+                    </a></li>
+                    <li class="nav-user dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/change-password.html">Change Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout.html">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+</div><!-- /navbar header -->
+
+<div class="span3">
+    <div class="sidebar">
+
+
+<ul class="widget widget-menu unstyled">
+            <li>
+                <a href="/shipper/views">
+					<i class="menu-icon icon-cog"></i>
+                    Order Management
+                </a>
+                       
+             </li>
+            
+            <li>
+                <a href="/shipper/views?page=me">
+                    <i class="menu-icon icon-group"></i>
+                    My Orders
+                </a>
+            </li>
+        </ul>
+
+
+  
+        <ul class="widget widget-menu unstyled">   
+            <li th:if="${userName}!='GUEST'">
+                <a th:href="@{/account/logout}">
+                    <i class="menu-icon icon-signout"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+
+    </div><!--/.sidebar-->
+</div><!--/.span3-->
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">			
+			<div class="span9">
+					<div class="content">
+
+	    <div class="module">
+							<div class="module-head">
+								<h3>Pending Orders</h3>
+							</div>
+							<div class="module-body table">
+	
+								
+
+							
+								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display table-responsive " >
+									<thead>
+										<tr>
+											<th>#</th>
+											<th> Name</th>
+											<th width="50">Email</th>
+											<th width="50">Phone</th>
+											<th>Shipping Address</th>
+											<th>Product </th>							
+											<th>Order Date</th>
+											<th>Action</th>
+											
+										
+										</tr>
+									</thead>
+								
+<tbody>
+<!-- 							 -->
+								<tr th:each="order, iter : ${orders}" >
+									<td th:text=${iter.count}></td>
+									<td th:text=${users[iter.count-1].userName}></td>
+									<td th:text=${users[iter.count-1].email}></td>
+									<td th:text=${users[iter.count-1].phone}></td>
+									<td th:text=${order.receiverAddress}></td>
+									<td><button style="display: inline-block;width: 100%;" th:onclick="showOrderDetail([[${iter.index}]])">Xem</button></td>
+									
+									<td th:text=${order.orderDate}></td>
+									
+								
+									
+                                    <td>
+                                        <button th:onclick="doActionOrder([[${iter.count-1}]],4)">Delivered</button>
+									    </button>
+                                        <button th:onclick="openModal([[${iter.count-1}]],5)">Delivery error</button>
+                                        </button>
+                                     </td>
+								
+									
+								</tr>
+										
+
+										
+										</tbody>
+								</table>
+							</div>
+						</div>						
+
+						
+						
+					</div><!--/.content-->
+				</div><!--/.span9-->
+			</div>
+		</div><!--/.container-->
+	</div><!--/.wrapper-->
+	<div class="modal__admin disable__none">
+	<div class="modal__admin-container d-flex " >
+		<div class=" module-body table " style="display: flex;justify-content: center;">
+	
+			<!-- <div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Oh snap!</strong>
+
+
+			<br /> -->
+
+	
+		<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display table-responsive shipper_table" >
+			<thead>
+				<tr >
+					<th>#</th>
+					<th> Img</th>		
+					<th>Product Name</th>
+					<th>Price </th>
+					<th>Quantity</th>
+					<th colspan="2">Total Price</th>								
+					
+				
+				</tr>
+			</thead>
+		
+<tbody class='order_detail'>
+<!-- 							 -->
+		
+				
+
+				
+				</tbody>
+				
+				<tr >
+					<td style="text-align: right;"colspan="5">Total</td>
+					<td id='total_all'></td>
+				</tr>
+				<tr >
+					<td style="text-align: right;"colspan="5">Collect money</td>
+					<td id='collect_money'></td>
+				</tr>
+		</table>
+		<div class="form__main  d-flex flex-column">
+			<!-- login -->
+			<div class="form active" id="form-login d-flex flex-column">
+			  <span class="title" style="margin-bottom: 20px;">Message</span>
+			  <textarea style="width: 100%;margin-top: 10px;" id="w3review" name="w3review" rows="4" cols="50" placeholder="Text Message...">
+				
+				</textarea>
+			  <div class="login-signup">
+		
+				  <a class="sign signup">Xác nhận lý do</a>
+				</span>
+			  </div>
+			</div>
+			<!-- login -->
+		  
+		  </div>
+	</div>
+	</div>
+	</div>
+	<script th:inline="javascript">
+		
+		const modal__admin = document.querySelector('.modal__admin')
+		const modal__admin_container = document.querySelector('.modal__admin-container')
+		const shipper_table = document.querySelector('.shipper_table')
+		const form__main= document.querySelector('.form__main')
+		console.log(shipper_table)
+		const showOrderDetail = (index)=>
+		{
+			shipper_table.style.display='table'
+			form__main.style.display='none'
+			var orderDetails=/*[[${orderDetails}]]*/
+				console.log(orderDetails[index])	
+				var orders=/*[[${orders}]]*/;
+			var isPaid=orders[index].isPaid;
+			modal__admin.classList.toggle('disable__none')
+			const order_detail = document.querySelector('.order_detail')
+			var sum = 0;
+			var htmls = orderDetails[index].map((orderDet,index)=>
+			{
+				var productImg=orderDet.productImg;
+				var price = orderDet.price
+				var quantity = orderDet.quantity
+				sum+=price*quantity
+				return `
+				<tr>
+				<td>${index+1}</td>
+
+				<td><img style="object-fit: scale-down;" width="100" height="100" id="output1" class='img-thumbnail' src="data:image/jpeg;base64,${productImg}" /></td>
+				<td>${orderDet.productTitle}</td>
+				<td>${price}</td>
+				<td>${quantity}</td>
+				<td>${getChangeMomneyFormat(price*quantity)}</td>
+				</tr>
+				`
+			})
+			order_detail.innerHTML = htmls.join('')
+			const total_all = document.querySelector('#total_all')
+			sum=getChangeMomneyFormat(sum)
+			total_all.innerText = ""+sum;
+			const collect_money = document.querySelector('#collect_money')
+			if(isPaid) collect_money.innerHTML="0";
+			else 
+			collect_money.innerHTML=""+sum;
+		}
+		
+		modal__admin.onclick = ()=>
+		{
+			modal__admin.classList.toggle('disable__none')
+		}
+		modal__admin_container.onclick = (e)=>
+		{
+			e.stopPropagation()
+
+		}
+	</script>
+	<script src="/css/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="/css/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/flot/jquery.flot.js" type="text/javascript"></script>
+	<script src="/css/scripts/datatables/jquery.dataTables.js"></script>
+	<script src="/js/main.js"></script>
+	<script  th:inline="javascript">
+		const signup =document.querySelector('.signup')
+		const w3review =document.querySelector('#w3review')
+		signup.onclick = ()=>
+		{
+			sendMessage(currentIndex,5);
+		}
+		async function sendMessage(index,action){
+			console.log(w3review.value.trim())
+			var orders=/*[[${orders}]]*/ 
+		console
+		let formData = new FormData(); 
+		  formData.append("orderId",orders[index].id);
+		  formData.append("action",action);
+		  let response =  await  fetch('/shipper/orders/action?messageError='+w3review.value.trim(), {
+		    method: "POST", 
+		    body: formData
+		  }); 
+		  if (response.status == 200) {
+            confirm('Are You Sure About That?')
+		    response.json().then(() => updateView(action,orders[index].id));
+		    //reload neu update ve 0
+		    //if(event.target.value==0){
+				//location.reload();
+			//}
+		    }
+		}
+		var currentIndex;
+	function openModal(index,action){
+		shipper_table.style.display='none'
+			form__main.style.display='flex'
+			modal__admin.classList.toggle('disable__none')
+			currentIndex=index;
+	}
+	async function doActionOrder(index,action){
+	
+		if(action==5)
+		{
+			shipper_table.style.display='none'
+			form__main.style.display='flex'
+			modal__admin.classList.toggle('disable__none')
+			var orders=/*[[${orders}]]*/ 
+		console
+		let formData = new FormData(); 
+		  formData.append("orderId",orders[index].id);
+		  formData.append("action",action);
+		  let response =  await  fetch('/shipper/orders/action', {
+		    method: "POST", 
+		    body: formData
+		  }); 
+		  if (response.status == 200) {
+            confirm('Are You Sure About That?')
+		    response.json().then(() => updateView(action,orders[index].id));
+		    //reload neu update ve 0
+		    //if(event.target.value==0){
+				//location.reload();
+			//}
+		    }
+		}
+		
+	}
+	
+	function updateView(type,buttonId){
+        window.location.reload(true)
+	}
+	</script>
+</body>

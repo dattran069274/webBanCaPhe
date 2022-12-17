@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Insert title here</title>
+<script th:inline="javascript" th:src="@{/js/jquery.js}"></script>
+<script th:inline="javascript" th:src="@{/js/main.js}"></script>
+<script th:inline="javascript" th:src="@{/js/cart.js}"></script>
+</head>
+<body>
+	<table>
+	<thead>
+	<tr>
+	<th>#</th>
+	<th>Image</th>
+	<th>title</th>
+	<th>price</th>
+	<th>quantity</th>
+	<th colspan="1"></th>
+	</tr>
+	</thead>
+	<tbody>
+	<div th:if="${#lists.isEmpty(cartItemsDTO.cartItems)}">
+		<img width="500" height="500" th:src="@{/img/emptyCart.jpg}">
+	</div>
+	<form th:action="@{/shopping-cart/checkout}" method="POST" id="checkoutForm" th:object="${cartItemsDTO}">
+	<tr th:each="cartItem,iter :*{cartItems}">
+	 <form th:action="@{/shopping-cart/updateCart}" method="post" name="quantityForm" id="quantityForm"> 
+	<input type="hidden" name="productId" th:id="${cartItem.productId}" th:value="${cartItem.productId}"/>
+	<td th:text=${iter.count}></td>
+		<td><img style="object-fit: cover;" width="200" height="200" id="output" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${cartItemImages[iter.count-1]}" /></td>
+		<td><input th:field="*{cartItems[__${iter.index}__].title}" /></td>
+		<td><input th:field="*{cartItems[__${iter.index}__].price}" /></td>
+		<td>
+		<input th:value=${cartItem.quantity} th:field="*{cartItems[__${iter.index}__].quantity}" id="quantity" name="quantity" type="number"  th:onchange="submitFormUpdateQuantity(event,[[${cartItem.productId}]])"/>
+		</td>
+		<td>
+	</form>	
+	<a th:href="@{/shopping-cart/delete/{id}(id=${cartItem.getProductId()})}">
+		<button>Xóa</button></a></td>
+	</tr>
+	</tbody>
+	</table>
+	<h2>Total: <span id="total" th:text=${total}></span></h2>
+	<button type="submit" onclick="submitCheckout()">CHECK OUT</button>
+	<a th:href="@{/productIndex}">GO back to buy</a>
+	</form>
+	
+</body>
+</html>

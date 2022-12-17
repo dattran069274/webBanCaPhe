@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/htmlindex.html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin| Category</title>
+	<link type="text/css" href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/theme.css" rel="stylesheet">
+	<link type="text/css" href="/css/images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+</head>
+<body>
+	
+
+	
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <i class="icon-reorder shaded"></i>
+            </a>
+
+              <a class="brand" href="/index.html">
+                    Admin
+              </a>
+
+            <div class="nav-collapse collapse navbar-inverse-collapse">
+                <ul class="nav pull-right">
+                    <li><a href="#">
+                        Hello <span th:text=${userName}></span>
+                    </a></li>
+                    <li class="nav-user dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/change-password.html">Change Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout.html">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+</div><!-- /navbar -->
+
+<div class="span3">
+    <div class="sidebar">
+
+
+<ul class="widget widget-menu unstyled">
+            <li>
+                <a href="/admin/orders/views">
+					<i class="menu-icon icon-cog"></i>
+                    Order Management
+                </a>
+                       
+             </li>
+            
+            <li>
+                <a href="/admin/users/views">
+                    <i class="menu-icon icon-group"></i>
+                    Manage users
+                </a>
+            </li>
+        </ul>
+
+
+        <ul class="widget widget-menu unstyled">
+			<li><a href="/admin/categorys/views"><i class="menu-icon icon-tasks"></i> Create Category </a></li>
+			<li><a href="/admin/products/insert"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
+			<li><a href="/admin/products/views"><i class="menu-icon icon-table"></i>Manage Products </a></li>
+        
+            </ul><!--/.widget-nav-->
+
+        <ul class="widget widget-menu unstyled">
+            
+            <li>
+                <a href="/logout.html">
+                    <i class="menu-icon icon-signout"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+
+    </div><!--/.sidebar-->
+</div><!--/.span3-->
+
+	
+
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">				
+			<div class="span9">
+			
+					<div class="content">
+
+						<div class="module">
+							<div class="module-head">
+								<h3>Category</h3>
+							</div>
+							<!-- <div class="module-body">
+									<div class="alert alert-success">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong>Well done!</strong>	
+									</div>					
+									<div class="alert alert-error">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong>Oh snap!</strong>
+									</div>
+									<br /> -->
+
+									
+<div class="control-group">	
+<label class="control-label" for="basicinput">Category Name</label>
+<div class="controls">
+<input  type="text" placeholder="Enter category Name"  class="span8 tip controls__text" required>
+<input id="id" type="hidden" name="id" value="" />
+</div>
+</div>
+
+
+	
+	<div class="control-group">
+											<div class="controls">
+												<button id="btn__cre" onclick="insertData()" class="btn">Create</button>
+												<button id="btn__update" onclick="saveData()" type="submit" name="submit" class="btn" disabled>UpDate</button>
+											</div>
+										</div>
+							</div>
+						</div>
+	
+
+	<div class="module">
+							<div class="module-head">
+								<h3>Manage Categories</h3>
+							</div>
+							<div class="module-body table">
+								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Category</th>														
+											<th>Action</th>
+										</tr>
+									</thead>
+													
+										<tr th:each="categoryDTO ,iter: ${categoryDTOs}">
+											<td th:text="${iter.index}">1</td>
+											<td th:text="${categoryDTO.name}" th:id="${categoryDTO.id}"></td>										
+											<td>
+												<a th:onClick="handleUpdate([[${categoryDTO.id}]])">
+													Edit
+												</a>
+											</td>
+											
+											<td>
+											<a th:onClick="handleDel([[${categoryDTO.name}]],[[${categoryDTO.id}]])">Del <i class="icon-remove-sign"></i></a>
+											</td>
+										</tr>																
+								</table>
+							</div>
+						</div>						
+
+						
+						
+					</div><!--/.content-->
+				</div><!--/.span9-->
+			</div>
+		</div><!--/.container-->
+	</div><!--/.wrapper-->
+	<script>
+	var currentCateName="";
+	const btn__update= document.querySelector('#btn__update')	
+	const controls = document.querySelector('.controls__text')
+	const id_text = document.querySelector('#id')	
+	const btn__cre = document.querySelector('#btn__cre')	
+			const handleUpdate = (id)=>
+			{
+				
+				var name=document.getElementById(id)
+				var text=name.innerText;
+				currentCateName=text;
+				
+				 
+				id_text.value = id
+				controls.value = text
+				btn__cre.disabled = true
+				btn__update.disabled = false
+				
+			}
+			function saveData(){
+				var name=controls.value.trim();
+				console.log(name)
+				if(currentCateName==name){
+					//trung 
+					alert("trung")
+					return;
+				}
+				else {
+					//update 
+					submitFormUpdateCate(id_text.value,name);
+				}
+			}
+			btn__cre.onlick=function(){
+				var newName=controls.value.trim();
+				
+			}
+			 function submitFormUpdateCate(categoryId,name) {
+				  let formData = new FormData(); 
+				  formData.append("name",name);
+				  formData.append("id",categoryId);
+				   fetch('/admin/categorys/update', {
+				    method: "PUT", 
+				    body: formData
+				  })
+				  .then(data=>data.json())
+				  .then(data=>{
+					  if(data.status==1){
+						  updateView(categoryId,data.data);
+					  }
+					  else {
+						  alert("update không thành công!")
+					  }
+				  })
+				
+				}
+			 
+				function updateView(categoryId,data){
+					var name=document.getElementById(categoryId)
+					console.log(name)
+					name.innerText=data
+				}
+				
+			function insertData(){
+				
+				var name=controls.value.trim();
+				let formData = new FormData(); 
+				  formData.append("name",name);
+				fetch('/admin/categorys/save/', {
+				    method: "POST", 
+				    body:formData
+				  })
+				  .then(data=>data.json())
+				  .then(data=>{
+					  console.log(data)
+					  if(data.status==1){
+						  window.location.reload();
+					  }
+					  else {
+						  alert(data.message);
+					  }
+				  })
+				  /*fetch('/admin/categorys/rest/', {
+				    method: "POST", 
+				    headers: {
+			            "Content-Type":"application/json",
+			        },
+				    body:JSON.stringify({
+				    	id:1,
+				    	name:"456",
+				    	company:""
+				    })
+				})
+				  
+				  .then(data=>data.json())
+				  .then(data=>{
+					  console.log(data)
+				  })*/
+			}	
+			
+			const handleDel = (name,id)=>
+			{
+				
+				var ok=confirm('Dou You Want To Delete '+name);  
+				if(ok){
+					fetch('/admin/categorys/delete/'+id, {
+					    method: "DELETE", 
+					  })
+					  .then(data=>data.json())
+					  .then(data=>{
+						  console.log(data)
+						  if(data.status==1){
+							  window.location.reload();
+						  }
+						  else {
+							  alert("Xóa không thành công!")
+						  }
+					  })
+				}
+				
+			}
+	</script>
+	<script src="/css/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="/css/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/flot/jquery.flot.js" type="text/javascript"></script>
+	<script src="/css/scripts/datatables/jquery.dataTables.js"></script>
+	<!-- <script>
+		$(document).ready(function() {
+			$('.datatable-1').dataTable();
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		} );
+	</script> -->

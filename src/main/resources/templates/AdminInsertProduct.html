@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin| Insert Product</title>
+	<link type="text/css" href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="/css/theme.css" rel="stylesheet">
+	<link type="text/css" href="/css/style.css" rel="stylesheet">
+	<link type="text/css" href="/css/images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+<!-- <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+
+   <script>
+function getSubcat(val) {
+	$.ajax({
+	type: "POST",
+	url: "get_subcat.php",
+	data:'cat_id='+val,
+	success: function(data){
+		$("#subcategory").html(data);
+	}
+	});
+}
+function selectCountry(val) {
+$("#search-box").val(val);
+$("#suggesstion-box").hide();
+}
+</script>	 -->
+
+
+</head>
+<body>
+
+	
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <i class="icon-reorder shaded"></i>
+                </a>
+    
+                  <a class="brand" href="/index.html">
+                        Admin
+                  </a>
+    
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                    <ul class="nav pull-right">
+                        <li><a href="#">
+                            Hello <span th:text=${userName}></span>
+                        </a></li>
+                        <li class="nav-user dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/change-password.html">Change Password</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/logout.html">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div>
+        </div><!-- /navbar-inner -->
+    </div><!-- /navbar header -->
+    
+    <div class="span3">
+        <div class="sidebar">
+    
+    
+    <ul class="widget widget-menu unstyled">
+                <li>
+                    <a href="/admin/orders/views">
+                        <i class="menu-icon icon-cog"></i>
+                        Order Management
+                    </a>
+                           
+                 </li>
+                
+                <li>
+                    <a href="/admin/users/views">
+                        <i class="menu-icon icon-group"></i>
+                        Manage users
+                    </a>
+                </li>
+            </ul>
+    
+    
+            <ul class="widget widget-menu unstyled">
+                <li><a href="/admin/categorys/views"><i class="menu-icon icon-tasks"></i> Create Category </a></li>
+                <li><a href="/admin/products/insert"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
+                <li><a href="/admin/products/views"><i class="menu-icon icon-table"></i>Manage Products </a></li>
+            
+                </ul><!--/.widget-nav-->
+    
+            <ul class="widget widget-menu unstyled">
+                
+                <li>
+                    <a href="/logout.html">
+                        <i class="menu-icon icon-signout"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+    
+        </div><!--/.sidebar-->
+    </div><!--/.span3-->
+    
+
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+			
+			<div class="span9">
+					<div class="content">
+
+						<div class="module">
+							<div class="module-head">
+								<h3>Insert Product</h3>
+							</div>
+							<div class="module-body">
+
+									
+
+									<!-- <div class="alert alert-success">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong>Well done!</strong>	
+
+
+
+									
+
+									<div class="alert alert-error">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong>Oh snap!</strong> 	
+									</div>
+
+
+									<br /> -->
+
+			<form class="form-horizontal row-fluid" method="post" th:action="@{/admin/products/save}" th:object="${productDTO}" name="insertproduct"enctype="multipart/form-data">
+<input type="hidden" th:field="*{id}" />
+<div class="control-group">
+<label class="control-label" for="basicinput">Category</label>
+<div  class="controls">
+<select   th:field="*{categoryId}" name="category" class="span8 tipc controls__category " >
+
+        <option th:each="categoryDTO,iter:${categoryDTOs}" th:text="${categoryDTO.name}"  th:value="${categoryDTO.id}"> </option>
+
+
+</select>
+</div>
+</div>
+
+									
+
+
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Name</label>
+<div class="controls">
+<input type="text"   th:field="*{title}" name="productName"  placeholder="Enter Product Name" class="span8 tip productName" required>
+</div>
+</div>
+
+
+
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Description</label>
+<div class="controls">
+<textarea  name="productDescription" th:field="*{description}" placeholder="Enter Product Description" rows="6" class="span8 tip productDescription" required>
+</textarea>  
+</div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="basicinput">Price</label>
+    <div class="controls">
+    <input type="text" name="productprice"  th:field="*{price}" placeholder="Enter Product Price" class="span8 tip productprice" required>
+    </div>
+    </div>
+<img style="object-fit: scale-down;" width="200" height="200" id="output1" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${productImage}" />
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Image1</label>
+<div class="controls controls__productimage">
+<input type="file" name="photo" id="productimage1" th:value="*{price}" class="span8 tip productimage1" onchange="loadFile(event,1)" >
+</div>
+</div>
+
+<img style="object-fit: cover;" width="200" height="200" id="output2" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${productImage2}" />
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Image2</label>
+<div class="controls controls__productimage">
+<input type="file" name="photo2" id="productimage2" th:value="*{price}" class="span8 tip productimage2" onchange="loadFile(event,2)" >
+</div>
+</div>
+
+
+<img style="object-fit: cover;" width="200" height="200" id="output3" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${productImage3}" />
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Image3</label>
+<div class="controls controls__productimage">
+<input type="file" name="photo3" id="productimage3" th:value="*{price}" class="span8 tip productimage3" onchange="loadFile(event,3)" >
+</div>
+</div>
+
+	<div class="control-group">
+											<div class="controls">
+												<button  type="submit" name="submit" class="btn btn__submit">Insert</button>
+											</div>
+										</div>
+									</form>
+							</div>
+						</div>
+
+
+	
+						
+						
+					</div><!--/.content-->
+				</div><!--/.span9-->
+			</div>
+		</div><!--/.container-->
+	</div><!--/.wrapper-->
+
+
+    <script>
+    var loadFile = function(event,i) {
+        var image = document.getElementById('output'+i);
+        image.src=URL.createObjectURL(event.target.files[0]);};
+        const proName = document.querySelector('.productName')
+        const proDes = document.querySelector('.productDescription')
+        const controls__productimage = document.querySelectorAll('.controls__productimage input')
+        const btn__submit = document.querySelector('.btn__submit')
+        //var currencyInput = document.querySelector('input[type="currency"]')
+      
+
+
+ // format inital value
+
+
+// bind event listeners
+
+//currencyInput.addEventListener('blur', onBlur)
+//currencyInput.addEventListener('focus', onfocus)
+
+function localStringToNumber( s ){  
+  return Number(String(s).replace(/[^0-9.-]+/g,""))
+}
+
+
+function onfocus(e){
+    currencyInput.value = ''
+}
+
+function onBlur(e){
+  var value = e.target.value
+
+
+        currencyInput.value =  Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value) 
+
+  
+    // e.target.value = value ? localStringToNumber(value) : ''
+}
+    
+    
+    </script>
+	<script src="/css/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="/css/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/css/scripts/flot/jquery.flot.js" type="text/javascript"></script>
+	<script src="/css/scripts/datatables/jquery.dataTables.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.datatable-1').dataTable();
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		} );
+	</script>
+</body>

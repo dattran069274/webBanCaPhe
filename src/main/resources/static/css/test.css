@@ -1,0 +1,145 @@
+.img-thumbnail
+{
+	width: 100px;
+	height: 100px;
+}
+.row__product-container
+{
+	background-color: #ededed;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 14px;
+
+
+}
+.row__product-container p 
+{
+	margin-bottom: 0 !important;
+
+}
+.row__product-container_sort
+{
+	display:  flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 0 !important;
+	padding: 13px 20px;
+
+}
+.row__product-container_sort div{
+	margin-bottom: 0;
+}
+.row__product-container_sort p 
+{
+	color: #555;
+	font-weight: 500;
+}
+
+.row__product-container_sort a{
+	text-decoration: none;
+	color: black;
+}
+.row__product-container_sort button
+{
+	border: none;
+	outline: none;
+	background-color: white;
+	border-radius: 4px;
+	margin-left: 10px;
+	padding: 6px 15px;
+	font-weight: 450;
+}
+.dropdown_price
+{
+}
+.dropdown_price button
+{width: 100px;
+	color:  black;
+	font-size: 14px;
+}
+.item__price
+{
+	margin: 0 !important;
+	padding: 6px 6px!important;
+}
+.item__price a{
+
+}
+.row__product-container-route
+{
+	margin-bottom: 0 !important;
+	display: flex;
+	align-items: center;
+}
+.row__product-numpage
+{
+	margin-right: 6px;
+}
+.row__product-container-route button
+{
+	outline: none;
+    cursor: pointer;
+    border: 0;
+    font-weight: 300;
+	padding: 6px 15px;
+
+    line-height: 1;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .1s cubic-bezier(.4,0,.6,1);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 2px;
+    background: transparent;
+    color: rgba(0,0,0,.8);
+}
+.row__product-container-route a{
+
+    color: rgba(0,0,0,.8);
+}
+.navbar__search
+{
+	position: relative;
+}
+.navbar__search-list {
+    position: absolute;
+    background-color: #fff;
+    width: 254px;
+    top: 51px;
+    right: 133px;
+    margin: 0;
+    padding: 0;
+}
+.navbar__search-item
+{
+	list-style-type: none;
+	padding: 10px 20px;
+	color: black;
+    font-size: 1.6rem;
+
+}
+.card-body
+{
+    padding: 10px 20px;
+    background-color: #524850;
+    color: wheat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.module-head 
+{
+	display: flex;
+	justify-content: space-between;
+}
+.module-head input
+{
+	margin: 0;
+	padding: 10px 16px;
+}
+.module-head select
+{
+	margin: 0;
+}

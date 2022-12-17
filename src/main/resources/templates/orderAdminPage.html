@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
+</head>
+
+<body>
+	<h1>Orders Admin Page</h1>
+	<div class="row">
+	<div class="col-md-6">
+	<table border="1px" >
+<thead>
+<tr >
+	<th>Id</th>
+	<th>User</th>
+	<th>OrderBy (Phone)</th>
+	<th>OrderDate</th>
+	<th>View Detail</th>
+	<th colspan = "2" style="text-align: center;">Action</th>
+</tr>
+</thead>
+<tbody>
+	<tr th:each="order, iter : ${orders}" >
+		<td th:text=${iter.count}></td>
+		<td th:text=${users[iter.count-1].userName}></td>
+		<td th:text=${users[iter.count-1].phone}></td>
+		<td th:text=${order.orderDate}></td>
+		<td><button style="display: inline-block;width: 100%;" th:onclick="showOrderDetail([[${iter.count-1}]])">Xem</button></td>
+		<td th:if="${order.state==2}">
+		<button disabled><i class="material-icons" style="font-size:36px;"  >highlight_off</i>
+		</button>
+		</td>
+		<td th:if="${order.state==1}">
+		<button disabled><i class="fa fa-check-square-o" style="font-size:36px"></i>
+		</button>
+		</td>
+		<td th:if="${order.state==0}">
+		<button th:id="${'a'+order.id}" th:onclick="doActionOrder([[${iter.count-1}]],1)"><i class="fa fa-check-square-o" style="font-size:36px" ></i></button>
+		<button th:id="${'c'+order.id}" th:onclick="doActionOrder([[${iter.count-1}]],2)"><i class="material-icons" style="font-size:36px;"  >highlight_off</i>
+		</button>
+		</td>
+		
+	</tr>
+</tbody>
+</table>
+</div>
+<div class="col-md-6 text-center">
+<h1>Thong tin don</h1>
+<p th:text="${test}"></p>
+
+<div id="divOrderDetail">
+<div class="row justify-content-center align-items-center">
+<div class="col-md-3">img</div>
+<div class="col-md-3">Ten Mat Hang</div>
+<div class="col-md-3">So Luong</div>
+<div class="col-md-3">Gia</div>
+</div>
+</div>
+
+</div>
+	</div>
+	
+	<script  th:inline="javascript">
+	function showOrderDetail(index){
+		var orderDetails=/*[[${orderDetails}]]*/
+			console.log(orderDetails);
+		console.log(orderDetails[index]);
+		l=orderDetails[index].length;
+		var myString="";
+		for (let i = 0; i < l; i++) {
+			console.log(orderDetails[index]);
+			console.log(orderDetails[index].productTitle);
+			myString +="<div class='row justify-content-center align-items-center'>";
+			myString+="<div class='col-md-3' style='border:3px solid pink;'>";
+			myString+="<img style='object-fit: cover;' width='200' height='200' id='output' class='img-thumbnail' src='data:image/jpeg;base64,"+orderDetails[index][i].productImg+
+			"'/>"
+			+"</div>";
+			myString+="<div class='col-md-3' style='border:3px solid pink;width:100%;padding: 24px 0;'>";
+			myString+="<p>"+orderDetails[index][i].productTitle+"</p>";
+			myString+="</div>";
+				myString	+="<div class='col-md-3' style='border:3px solid pink;width:100%;height:100%;padding: 32px 0;'>"+orderDetails[index][i].quantity+"</div>";
+				myString	+="<div class='col-md-3' style='border:3px solid pink;width:100%;padding: 32px 0;'>"+orderDetails[index][i].price+"</div>";
+				myString	+="</div>";
+				myString	+=" </div>";
+			
+			}
+		document.getElementById("divOrderDetail").innerHTML=myString;
+	}
+	const ACCEPT_TYPE=1,CANCLE_TYPE=2;
+	async function doActionOrder(index,action){
+		var orders=/*[[${orders}]]*/ 
+		let formData = new FormData(); 
+		  formData.append("orderId",orders[index].id);
+		  formData.append("action",action);
+		  let response =  await  fetch('/admin/orders/action', {
+		    method: "POST", 
+		    body: formData
+		  }); 
+		  if (response.status == 200) {
+		    response.json().then(() => updateView(action,orders[index].id));
+		    //reload neu update ve 0
+		    //if(event.target.value==0){
+				//location.reload();
+			//}
+		    }
+	}
+	function updateView(type,buttonId){
+		console.log(buttonId,type);
+		switch(type){
+		case ACCEPT_TYPE:
+			console.log(ACCEPT_TYPE);
+			document.getElementById("a"+buttonId).disabled = true;
+			document.getElementById("c"+buttonId).remove();
+		break;
+		case CANCLE_TYPE:
+			console.log(CANCLE_TYPE);
+			document.getElementById("c"+buttonId).disabled = true;
+			document.getElementById("a"+buttonId).remove();
+			break;
+		}
+	}
+	</script>
+</body>
+</html>

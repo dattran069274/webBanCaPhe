@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- <script th:inline="javascript" th:src="@{/js/cart.js}"></script> -->
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" th:href="@{/}">
+                <img class="navbar__logo" src="/assets/logo.jpg" alt="">
+                <span>Roku Coffee</span></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/}">Trang Chủ</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Loại</a>
+                    <div class="nav-item__cate row">
+                      <!-- danh sách cafe -->
+                      <ul class="nav-item__cate-list col-md-4"> 
+                        <div class="d-flex align-items-center"> 
+                          <i class="fa-solid fa-caret-right"></i>
+                          <a th:href="@{/product/ca-phe-hat}" class="m-0">Cafe Hạt</a></div>
+                       
+                   
+                      </ul>
+                      <ul class="nav-item__cate-list col-md-4">
+                        <div class="d-flex align-items-center"> 
+                          <i class="fa-solid fa-caret-right"></i>
+                          <a th:href="@{/product/ca-phe-phin}" class="m-0">Cafe Phin</a></div>
+                    
+                      
+                      </ul>
+                      <ul class="nav-item__cate-list col-md-4">
+                        <div class="d-flex align-items-center"> 
+                          <i class="fa-solid fa-caret-right"></i>
+                          <a th:href="@{/product/ca-phe-hoa-tan}" class="m-0">Cafe Hòa Tan</a></div>
+                 
+                      
+                      </ul>
+                
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/product/views}">Sản Phẩm</a>
+                  </li>
+                 
+                </ul>
+                <div class=" navbar__search d-flex">
+                    <input class="navbar__search--form form-control"type="text" placeholder="Tìm kiếm" aria-label="default input example">
+                    <i class="navbar__search--icon fa-solid fa-magnifying-glass" style="color: white;"></i>
+                </div>
+                <div class="navbar__cart">
+                  <i class="navbar__cart--icon fa-solid fa-cart-shopping"></i>
+                  <span class="navbar__quantities">
+               
+                  </span>
+                </div>
+                <div class="navbar__user-dropdown">
+                  <a class="navbar__user-link"><i class="fa-regular fa-user"></i></a>
+                  <ul class="navbar__user-dropdown_list">
+                    <li th:if="${userName}">Chào Mừng <span  th:text="${userName}"></span></li>
+                    <li th:if="${userName}!='GUEST'"><a th:href="@{/account/view/5}">Tài Khoản</a></li>
+                    <li th:if="${userName}!='GUEST'"><a th:href="@{/history/views}">Đơn Hàng</a></li>
+                      <li th:if="${userName}=='GUEST'"><a th:href="@{/account/login/home}">Đăng Nhập</a></li>
+                      <li th:if="${userName}!='GUEST'"><a th:href="@{/account/logout}">Đăng Xuất</a></li>
+                    
+  
+                  </ul>
+                  </div>
+              </div>
+            </div>
+          </nav>
+           <!-- navbar -->
+    <!-- navbar sub -->
+
+    <div class="navbar__sub">
+        <div class="container-fluid">
+            <div class="navbar__sub--intro">
+                <h1 class="nav__sub--item">Trang Chủ</h1>
+                <i class="fa-sharp fa-solid fa-arrow-right" style="font-size: 20px;"></i>
+                <h1 class="nav__sub--item">Giỏ Hàng</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- navbar sub -->
+    </header>
+     <!-- header -->
+
+     <!-- body -->
+    <body>
+       
+      <!-- Cart -->
+
+      <div class="container cart__page">
+        
+        <table>
+          <tr>
+            <th>Sản Phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+          </tr>
+          <form th:action="@{/shopping-cart/checkout}" method="POST" id="checkoutForm" th:object="${cartItemsDTO}">
+          <tr th:each="cartItem,iter :*{cartItems}">
+          <form th:action="@{/shopping-cart/updateCart}" method="post" name="quantityForm" id="quantityForm"> 
+            <input type="hidden" name="productId" th:id="${cartItem.productId}" th:value="${cartItem.productId}"/>
+            <td>
+             <div class="cart__info">
+              <img style="height: 100px;" id="output" class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${cartItemImages[iter.count-1]}" />
+              <div class="cart__des">
+                <p th:text="*{cartItems[__${iter.index}__].title}" ></p>
+                <a th:href="@{/shopping-cart/delete/{id}(id=${cartItem.getProductId()})}">Remove</a>                
+              </div>
+              
+            </td>
+            <td>
+              <input th:value=${cartItem.quantity} th:field="*{cartItems[__${iter.index}__].quantity}" id="quantity" name="quantity" type="number"  th:onchange="submitFormUpdateQuantity(event,[[${cartItem.productId}]])"  >
+            </td>
+            <td class="cart__page--price" th:text="*{cartItems[__${iter.index}__].price}"></td>
+          </tr>
+        </form>
+        </table>
+       
+      </div>
+      <div class="container total__price justify-content-end">
+        <table >
+          <tr>
+            <td>Tổng Cộng</td>
+            <td class="cart__page--price" id="total" th:text="${total}"></td>
+          </tr>
+          
+        </table>
+      </div>
+      <div class=" container cart__page--check_out d-flex justify-content-end" >
+        <button class="cart__page__btn-cart-check" ><a th:href="@{/shopping-cart/checkout}">Mua Ngay</a></button>
+      </div>
+    
+           
+    </body>
+      <!-- body -->
+
+      <!-- footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="footer__element col-md-3">
+                    <p>THANH TOÁN</p>
+                    <div class="row">
+                      <img class="footer__pay--icon col-md-4" src="/assets/visa.png" alt="">
+                      <img class="footer__pay--icon col-md-4" src="/assets/mastercard.png" alt="">
+                      <img class="footer__pay--icon col-md-4" src="/assets/jcb.png" alt="">
+                      <img class="footer__pay--icon col-md-4" src="/assets/ame.png" alt="">
+                      <img class="footer__pay--icon col-md-4" src="/assets/sp.png" alt="">
+                    </div>
+                </div>
+                <div class="footer__element col-md-3">
+                  <p>ĐƠN VỊ VẬN CHUYỂN</p>
+                  <div class="row">
+                    <img class="footer__deli--icon col-md-4" src="/assets/dvvc1.png" alt="">
+                    <img class="footer__deli--icon col-md-4" src="/assets/jcb.png" alt="">
+                    <img class="footer__deli--icon col-md-4" src="/assets/njVan.png" alt="">
+                    <img class="footer__deli--icon col-md-4" src="/assets/best.png" alt="">
+                    <img class="footer__deli--icon col-md-4" src="/assets/vt.png" alt="">
+                    <img class="footer__deli--icon col-md-4" src="/assets/vnsp.png" alt="">
+                  </div>
+              </div>
+                <div class="footer__element col-md-3">
+                    <p>LIÊN HỆ</p>
+                    <div class="footer__contact">
+                      <div class="footer__contact-element">
+                        <i class="fa fa-mobile-phone"></i>
+                        <p>096861xxxx</p>
+                    </div>
+                    <div class="footer__contact-element">
+                      <i class="fa-regular fa-envelope"></i>
+                      <p>
+                        quoccaoxxx@gmail.com
+                      </p>
+                   </div>
+                    </div>
+                </div>
+                <div class="footer__element col-md-3">
+                 <p>THEO DÕI CHÚNG TÔI TRÊN</p>
+
+                 <div class="footer__contact">
+                  <div class="footer__contact-element">
+                    <i class="fa-brands fa-square-facebook"></i>
+                    <p>Facebook
+                    </p>
+                  </div>
+                  <div class="footer__contact-element">
+                    <i class="fa-brands fa-instagram"></i>
+                    <p>
+                      Instagram
+                    </p>
+                  </div>
+                  <div class="footer__contact-element">
+                    <i class="fa-brands fa-square-twitter"></i>
+                    <p>
+                      Twitter
+                    </p>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script th:inline="javascript" th:src="@{/js/account.js}"></script>
+    <script th:inline="javascript">
+    
+  /* code to run */
+  document.addEventListener("DOMContentLoaded", function(){
+   
+    const logBut = document.querySelector('.navbar__user-dropdown')
+        const navbar__user = document.querySelector('.navbar__user-dropdown_list')
+        logBut.onclick = ()=>
+        {
+          navbar__user.classList.toggle('active')
+          
+          
+        }
+        var a=/*[[${cartItemsDTO}]]*/
+        console.log(a)
+        const navbar__quantities = document.querySelector('.navbar__quantities')
+        navbar__quantities.innerHTML = a.cartItems.length
+        const row__product = document.querySelector('.row__product')
+        const navbar__search = document.querySelector('.navbar__search input')
+
+        navbar__search.addEventListener('keypress',function(e)
+      {
+        if (event.key === "Enter") {  
+        document.location = '/product/search/'+navbar__search.value;
+ 		    event.preventDefault();
+      }
+      })
+
+
+
+
+});
+const navbar__search = document.querySelector('.navbar__search input')
+navbar__search.addEventListener('keypress',(e)=>
+{
+  if(e.keyCode===13||e.which===13)
+  {
+      document.location='/product/search/'+e.target.value
+
+  }
+
+})
+
+     function getChangeMomneyFormat(price){
+	let number = ""+price
+	const { format } = new Intl.NumberFormat('vi-VN');
+	const [, decimalSign] = /^0(.)1$/.exec(format(0.1));
+	var num = number.replace(new RegExp(`[^${decimalSign}\\d]`, 'g'), '').replace(decimalSign, '.');
+	var numFloat=parseFloat(num);
+    let number3=numFloat.toLocaleString('vi-VN');
+    return number3
+}
+const price = document.querySelectorAll('.cart__page--price')
+    price.forEach((e)=>
+    {
+      var x = e.innerHTML;   
+      e.innerHTML = getChangeMomneyFormat(x)
+    })
+         
+    </script>
+  
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script> -->
+</body>
+</html>

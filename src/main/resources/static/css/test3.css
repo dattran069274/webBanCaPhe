@@ -1,0 +1,15 @@
+.card-body
+{
+    padding: 10px 20px;
+    background-color: #524850;
+    color: wheat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+td{
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 10px 8px;
+    color: rgba(46, 4, 14, 0.7);
+}

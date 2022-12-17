@@ -1,0 +1,52 @@
+.navbar
+{
+    z-index: 99;
+}
+.navbar__search-list {
+    position: absolute;
+    height: 300px;
+    width: 254px;
+    top: 51px;
+    right: 133px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+    display: none;
+}
+.navbar__search-list.active
+{
+    display: block;
+}
+.dropdown_price
+{
+    margin-bottom: 0 !important;
+}
+.modal
+{
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+}
+.modal.active{
+    display: flex;
+}
+.navbar__search-item
+{
+    cursor: pointer;
+}
+.card-body
+{
+    padding: 10px 20px;
+    background-color: #524850;
+    color: wheat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

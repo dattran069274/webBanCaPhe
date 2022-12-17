@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/test5.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" th:href="@{/}">
+                <img class="navbar__logo" src="/assets/logo.jpg" alt="">
+                <span>Roku Coffee</span></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/}">Trang Chủ</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Loại</a>
+                    <div class="nav-item__cate row">
+                      <!-- danh sách cafe -->
+                      <ul class="nav-item__cate-list col-md-4"> 
+                        <div class="d-flex align-items-center"> 
+                          <i class="fa-solid fa-caret-right"></i>
+                          <a th:href="@{/product/ca-phe-hat}" class="m-0">Cafe Hạt</a></div>
+                       
+                   
+                      </ul>
+                      <ul class="nav-item__cate-list col-md-4">
+                        <div class="d-flex align-items-center"> 
+                          <i class="fa-solid fa-caret-right"></i>
+                          <a th:href="@{/product/ca-phe-phin}" class="m-0">Cafe Phin</a></div>
+                    
+                      
+                      </ul>
+                      <ul class="nav-item__cate-list col-md-4">
+                        <div class="d-flex align-items-center"> 
+                          <i class="fa-solid fa-caret-right"></i>
+                          <a th:href="@{/product/ca-phe-hoa-tan}" class="m-0">Cafe Hòa Tan</a></div>
+                 
+                      
+                      </ul>
+                
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link"  th:href="@{/product/views}">Sản Phẩm</a>
+                  </li>
+                 
+                </ul>
+                <div class=" navbar__search d-flex">
+                    <input class="navbar__search--form form-control"type="text" placeholder="Tìm kiếm" aria-label="default input example">
+                    <i class="navbar__search--icon fa-solid fa-magnifying-glass" style="color: white;"></i>
+                </div>
+                <div class="navbar__cart">
+                  <a class="navbar__cart--link" th:href="@{/shopping-cart/views}">  <i class="navbar__cart--icon fa-solid fa-cart-shopping"></i>
+					<span th:text="${totalCartItems}" class="navbar__quantities">
+                      
+                    </span></a>
+                  </span>
+                </div>
+                           <div class="navbar__user-dropdown">
+                  <a class="navbar__user-link"><i class="fa-regular fa-user"></i></a>
+                  <ul class="navbar__user-dropdown_list">
+                    <li th:if="${userName}">Chào Mừng <span  th:text="${userName}"></span></li>
+                    <li th:if="${userName}!='GUEST'"><a th:href="@{/account/view/1}">Tài Khoản</a></li>
+                      <li th:if="${userName}=='GUEST'"><a th:href="@{/account/login}">Đăng Nhập</a></li>
+                      <li th:if="${userName}!='GUEST'"><a th:href="@{/account/logout}">Đăng Xuất</a></li>
+                    
+  
+                  </ul>
+                  </div>
+              </div>
+            </div>
+          </nav>
+           <!-- navbar -->
+    <!-- navbar sub -->
+
+    <div class="navbar__sub">
+        <div class="container-fluid">
+            <div class="navbar__sub--intro">
+                <h1 class="nav__sub--item">Trang Chủ</h1>
+                <i class="fa-sharp fa-solid fa-arrow-right" style="font-size: 20px;"></i>
+                <h1 class="nav__sub--item">Đơn Hàng</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- navbar sub -->
+    </header>
+     <!-- header -->
+
+     <!-- body -->
+	
+	 <div class="wrapper">
+		<div class="container">
+		
+					<div class="content">
+
+	    <div class="module">
+							
+							<div class="module-body table">
+	
+								<!-- <select id="orderStatus" style="margin: 0;float: right;width: 30%;font-size: 14px;" class="form-select" aria-label="Default select example" >	
+									<option selected value="6">Tất Cả</option>			
+									<option value="0">Đơn hàng chờ xác nhận</option>
+									<option value="1">Đơn đã được duyệt</option>
+									<option value="2">Đã Hủy</option>
+									<option value="3">Đang giao</option>
+									<option value="4">Đã giao</option>
+									<option value="5">Giao thất bại </option>
+								  </select> -->
+								  <ul class="module__statu row" style="display: flex;list-style-type: none;margin:4px 0;padding: 0; font-size: 14px;cursor: pointer;">
+									<!-- <li class="col-2">Tất Cả</li> -->
+									<li  data-value="6" class="col-1 active">Tất Cả</li>
+									<li data-value="0" class="col-2">Đơn hàng chờ xác nhận</li>
+									<li data-value="2" class="col-2">Đơn đã được duyệt</li>
+									<li data-value="1" class="col-1">Đã Hủy</li>	
+									<li data-value="3" class="col-2">Đang giao</li>
+									<li data-value="4" class="col-2">Đã giao</li>
+									<li data-value="5" class="col-2">Giao thất bại </li>
+								  </ul>
+
+							
+								<table >
+									<thead>
+										<tr>
+											<th>#</th>
+											<th> Tên Người Nhận</th>
+											<th>Địa Chỉ Giao</th>
+											<th>Sản Phẩm </th>							
+											<th>Ngày Đặt</th>
+											<th>Tình Trạng</th>
+											<th>Lựa Chọn</th>
+											
+										
+										</tr>
+									</thead>
+								
+							<tbody>
+
+								<tr class="order_product" th:each="order, iter : ${orders}" >
+									<td th:text=${iter.count}></td>
+									<td th:text=${userName}></td>
+								
+									<td th:text=${order.receiverAddress}></td>
+									<td><button style="display: inline-block;width: 100%;" th:onclick="showOrderDetail([[${iter.index}]])">Xem</button></td>
+									
+									<td th:text=${order.orderDate}></td>
+									<td th:text=${order.stateName}>
+
+									</td>
+									<td th:if="${order.state==5}">
+										<button class="btn_sta" data-value="5" disabled>Giao Thất Bại
+										</button>
+									</td>	
+									<td th:if="${order.state==4}">
+										<button class="btn_sta" data-value="4" disabled>Giao Thành Công
+										</button>
+									</td>	
+									<td th:if="${order.state==3}">
+										<button class="btn_sta" data-value="3" disabled>Đang Giao
+										</button>
+									</td>	
+									<td th:if="${order.state==1}">
+										<button class="btn_sta"  data-value="1" disabled>Đã Hủy
+										</button>
+									</td>
+									<td th:if="${order.state==2}">
+										<button class="btn_sta"  data-value="2" disabled>Đơn đã được duyệt
+										</button>
+									</td>
+										<td th:if="${order.state==0}">
+										<button class="btn_sta" data-value="0" th:id="${'c'+order.id}" th:onclick="doActionOrder([[${iter.count-1}]],1)">Hủy Đơn Hàng
+										</button>
+										</td>
+									
+								</tr>
+										
+
+										
+							</tbody>
+								</table>
+							</div>
+						</div>						
+
+						
+						
+					</div><!--/.content-->
+				<!--/.span9-->
+			</div>
+		</div><!--/.container-->
+	</div>
+	<!--/.wrapper-->
+	<div class="modal__admin disable__none">
+	<div class="modal__admin-container">
+		<div class="module-body table">
+	
+			<!-- <div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Oh snap!</strong>
+
+
+			<br /> -->
+
+	
+		<table >
+			<thead>
+				<tr>
+					<th>#</th>
+					<th> Img</th>		
+					<th>Product Name</th>
+					<th>Price </th>
+					<th>Quantity</th>
+					<th colspan="2">Total Price</th>								
+					
+				
+				</tr>
+			</thead>
+		
+            <tbody class='order_detail'>
+<!-- 							 -->
+					
+			</tbody>
+				
+			<tr >
+				<td style="text-align: right;"colspan="5">Total</td>
+				<td id='total_all'></td>
+			</tr>
+		</table>
+
+	</div>
+	</div>
+
+      <!-- body -->
+
+      <!-- footer -->
+
+    <!-- footer -->
+  
+    <script th:inline="javascript">
+    const navbar__user = document.querySelector('.navbar__user-dropdown_list')
+    const logBut =  document.querySelector('.navbar__user-link')
+   // var a=/*[[${cartItemsDTO}]]*/
+      //  console.log(a)
+        const navbar__quantities = document.querySelector('.navbar__quantities')
+        // navbar__quantities.innerHTML = a.cartItems.length
+    logBut.onclick = ()=>
+    {
+        navbar__user.classList.toggle('active')
+    }
+    const navbar__search = document.querySelector('.navbar__search input')
+
+navbar__search.addEventListener('keypress',function(e)
+{
+  if (event.key === "Enter") {  
+    document.location = '/product/search/'+navbar__search.value;
+ 		event.preventDefault();
+     }
+})
+      const modal = document.querySelector('.modal')
+      const check_out_address = document.querySelectorAll('.check--out__address-add')
+      check_out_address.forEach((i)=>
+      { 
+        console.log(i)
+        i.onclick=()=>
+        {
+          modal.classList.remove('disable__none')
+        }
+      })
+   
+//const butOuts = document.querySelectorAll('.modal__container-button button')
+//butOuts.forEach((butOut)=>
+//{
+ // butOut.onclick = ()=>
+//{
+ // modal.classList.add('disable__none')
+//}
+//})
+
+    </script>
+		<script th:inline="javascript">
+			
+function getChangeMomneyFormat(price){
+	let number = ""+price
+	const { format } = new Intl.NumberFormat('vi-VN');
+	const [, decimalSign] = /^0(.)1$/.exec(format(0.1));
+	var num = number.replace(new RegExp(`[^${decimalSign}\\d]`, 'g'), '').replace(decimalSign, '.');
+	var numFloat=parseFloat(num);
+    let number3=numFloat.toLocaleString('vi-VN');
+    return number3
+}
+			const modal__admin = document.querySelector('.modal__admin')
+			const modal__admin_container = document.querySelector('.modal__admin-container')
+			const showOrderDetail = (index)=>
+			{
+				
+				var orderDetails=/*[[${orderDetails}]]*/
+					console.log(orderDetails[index])	
+				modal__admin.classList.toggle('disable__none')
+				const order_detail = document.querySelector('.order_detail')
+				var sum = 0;
+				var htmls = orderDetails[index].map((orderDet,index)=>
+				{
+					
+					var productImg=orderDet.productImg;
+					var price = orderDet.price
+					var quantity = orderDet.quantity
+					sum+=price*quantity
+	
+					return `
+					<tr>
+					<td>${index+1}</td>
+	
+					<td><img style="object-fit: scale-down;" width="100" height="100" id="output1" class='img-thumbnail' src="data:image/jpeg;base64,${productImg}" /></td>
+					<td>${orderDet.productTitle}</td>
+					<td>${price}</td>
+					<td>${quantity}</td>
+					<td>${getChangeMomneyFormat(price*quantity)}</td>
+					</tr>
+					`
+				})
+				order_detail.innerHTML = htmls.join('')
+				const total_all = document.querySelector('#total_all')
+
+				
+				total_all.innerText = getChangeMomneyFormat(sum)
+			}
+			const btn_del = document.querySelector('.btn_del')
+		
+			modal__admin.onclick = ()=>
+			{
+		
+				modal__admin.classList.toggle('disable__none')
+			}
+			modal__admin_container.onclick = (e)=>
+			{
+				e.stopPropagation()
+	
+			}
+		</script>
+		<!-- <script src="/js/main.js"></script> -->
+		<script  th:inline="javascript">
+			const orderStatus = document.querySelector('#orderStatus')
+	const btn_status = document.querySelectorAll('.btn_status')
+	const btn_sta= document.querySelectorAll('.btn_sta')
+
+		const CANCLE_TYPE=2;
+		async function doActionOrder(index,action){
+			let result = confirm('Bạn Chắc Chứ?')
+			if(result)
+			{
+				var orders=/*[[${orders}]]*/ 
+			console
+			let formData = new FormData(); 
+		  	formData.append("orderId",orders[index].id);
+		 	 formData.append("action",action);
+		 	 let response =  await  fetch('/admin/orders/action', {
+		    method: "POST", 
+		    body: formData
+			}); 
+		  	if (response.status == 200) {
+			window.location.reload(true)
+		    response.json().then(() => updateView(action,orders[index].id));
+		    //reload neu update ve 0
+		    //if(event.target.value==0){
+				//location.reload();
+			//}
+		    }
+			}
+			else
+			{
+				return
+			}
+	
+	}
+	
+		function updateView(type,buttonId){
+			console.log(buttonId,type);
+			switch(type){
+			case ACCEPT_TYPE:
+				console.log(ACCEPT_TYPE);
+				document.getElementById("a"+buttonId).disabled = true;
+				document.getElementById("c"+buttonId).remove();
+			break;
+			case CANCLE_TYPE:
+				console.log(CANCLE_TYPE);
+				document.getElementById("c"+buttonId).disabled = true;
+				document.getElementById("a"+buttonId).remove();
+				break;
+			}
+		}
+		btn_sta.forEach(i=>
+	  {
+		if(i.dataset.value==0||i.dataset.value==1||i.dataset.value==2)
+		{
+		
+			i.parentElement.previousElementSibling.firstChild.disabled=true
+			
+		}
+	  })
+	  const module__status = document.querySelectorAll('.module__statu li')
+	  var currentClick
+	  module__status.forEach(module__sta=>{
+		module__sta.onclick = ()=>
+		{currentClick = module__sta
+			module__status.forEach(module__sta=>{
+				module__sta.classList.remove('active')
+			})
+
+			currentClick.classList.add('active')
+			btn_sta.forEach(i=>
+	 	 {
+		if(module__sta.dataset.value == 6)
+		{
+			i.parentElement.parentElement.style.display = 'table-row'
+		}
+		else if( module__sta.dataset.value === i.dataset.value)
+		{
+			i.parentElement.parentElement.style.display = 'table-row'
+		}
+		else{
+			
+			i.parentElement.parentElement.style.display = 'none'
+		
+		}
+	  	})
+		}
+	  })
+		
+	
+	
+	
+	// orderStatus.onchange = ()=>
+	// { 
+	// 	if(orderStatus.value==6){
+	// 		btn_sta.forEach(i=>
+	//   {
+	// 		i.parentElement.parentElement.style.display = 'table-row'
+	//   })
+	// 		return;
+	// 	}
+	
+	// }
+		</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script> -->
+</body>
+</html>
